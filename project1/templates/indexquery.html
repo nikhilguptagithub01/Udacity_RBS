@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>
+            Flask To-Do app
+        </title>
+    </head>
+    <body>
+        <ul>
+            {% for d in data %}
+            <li>{{ d.id, d.fname, d.lname, d.dept}}</li>
+            {% endfor %}           
+        </ul>
+        <ul>
+            {% for d in data %}
+            <li>{{ d.fname }}</li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for d in data %}
+            <li>{{ d.lname }}</li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for d in data %}
+            <li>{{ d.dept }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

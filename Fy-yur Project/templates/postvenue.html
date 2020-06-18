@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>
+            Post A Venue
+        </title>
+    </head>
+    <body>
+        <p><h1> Post a Venue</h1><br><br>
+            <h2>List a new Venue</h2>
+        </p>
+
+        <form id="form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name"><br><br>
+            <label for="city">City</label>
+            <label for="state">& State</label>
+            <select id="city" name="city">
+                <option value="Bangluru">Bangluru</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Gaya">Gaya</option>
+                <option value="Kolkata">Kolkata</option>
+            </select>
+            <select id="state" name="state">
+                <option value="Karnataka">Karnataka</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Bengal">Bengal</option>
+            </select><br><br>
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address"><br><br>
+            <label for="phnnumber">Phone Number</label>
+            <input type="text" id="phnnumber" name="phnnumber"><br><br>
+            <label for="genres">Genres CTRL+ Click to Select Multiple</label><br>
+            <select id="genres" name="genres" size="4" multiple>
+                <option value="Classical">Classical</option>
+                <option value="Electric">Electric</option>
+                <option value="Country">Country</option>
+                <option value="Traditional">Traditional</option>
+            </select><br><br>
+            <label for="facebooklink">Facebook Link</label>
+            <input type="text" id="facebooklink" name="facebooklink"><br><br>
+
+            <button type="submit" name="create venue">Create Venue</button>
+        </form>
+        <div id="error" class="hidden">Something went wrong...!!</div>
+        <script>
+        //---------------------Fetching data on form submission------------------------
+        document.getElementById('form').onsubmit=function(e){
+            e.preventDefault(e);
+            fetch('/postvenue', {
+                methods=['POST'],
+                body: JSON.stringify({
+                    //'id':document.getElementById('id').value,
+                    'name': document.getElementById('name').value,
+                    'city': document.getElementById('city').value,
+                    'state': document.getElementById('state').value,
+                    'address': document.getElementById('address').value,
+                    'phn_num': document.getElementById('phnnumber').value,
+                    'genres': document.getElementById('genres').value,
+                    'fblink': document.getElementById('facebooklink').value,
+                               
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .catch(function () {
+                    document.getElementById('error').className = '';
+                })
+            }
+
+
+
+        </script>
+        
+        
+
+
+
+    </body>
+</html>

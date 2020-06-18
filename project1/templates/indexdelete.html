@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <title>
+        Flask To-Do app 
+    </title>
+    <style>
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form id='form'>
+        <lable for="id">id: </lable>
+        <input type="text" id="id" name="id"><br>
+        <label for="fname">first name: </label>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">last name: </label>
+        <input type="text" id="lname" name="lname"><br>
+        <label for="dept">department: </label>
+        <input type="text" id="dept" name="dept"><br>
+        <input type="Submit" value="Insert"><br>
+    </form> 
+    <div id="error" class="hidden">Something went wrong...!!</div>
+    <ul id=todosul>
+        {% for d in data %}
+        <li>{{ d.id, d.fname, d.lname, d.dept }}</li>
+        {% endfor %}
+    </ul>
+    <script>
+        document.getElementById('form').onsubmit=function(e){
+            e.preventDefault();
+            fetch('/todoajax/create', {
+               method:'POST',
+               body: JSON.stringify({
+                   'id':document.getElementById('id').value,
+                   'fname': document.getElementById('fname').value,
+                   'lname': document.getElementById('lname').value,
+                   'dept': document.getElementById('dept').value
+               }),
+               headers:{
+                   'Content-Type': 'application/json'
+               }
+            })
+            .then(function(response){
+               /* if (response.status !== 200){
+                    console.log('Response status was not 200:', response.status);
+                    return;
+                }*/
+                return response.json();
+            })
+            .then(function(jsonResponse){
+                console.log(jsonResponse);
+                const idItem=document.createElement('Li');
+                const fnameItem = document.createElement('Li');
+                const lnameItem = document.createElement('Li');
+                const deptItem = document.createElement('Li');
+                idItem.innerHTML=jsonResponse['id']+ ',' 
+                                + jsonResponse['fname']+ ','
+                                +jsonResponse['lname']+',' 
+                                +jsonResponse['dept'];
+                //fnameItem.innerHTML=jsonResponse['fname'];
+                //lnameItem.innerHTML=jsonResponse['lname'];
+                //deptItem.innerHTML=jsonResponse[ 'dept'];
+                document.getElementById('todosul').appendChild(idItem); 
+                
+               //const Item=document.createElement('Li');
+
+                
+
+               /*var list = {
+                   id:jsonResponse['id'],
+                   fname:jsonResponse['fname'],
+                   lname:jsonResponse['lname'],
+                   dept:jsonResponse['dept']
+               }
+
+               
+
+                //document.write("OUtput ---", list.dept);               
+
+                document.getElementById('todosul').appendChild(list.tostring());*/
+            
+                //document.write("OUtput ---", jsonResponse['fname']);
+                                
+                
+                
+                document.getElementById('error').className='hidden';
+            })
+            .catch(function(){
+                document.getElementById('error').className='';
+            })
+        }
+    </script>
+</body>
+
+</html>

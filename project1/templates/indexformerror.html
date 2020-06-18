@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>
+            Flask To-Do app
+        </title>
+    </head>
+    <body>
+        <form action="/todotrycatch/create" method="POST">
+        <lable for="id">id: </lable>
+        <input type="text" id="id" name="id"><br>
+        <label for="fname">first name: </label>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">last name: </label>
+        <input type="text" id="lname" name="lname"><br>
+        <label for="dept">department: </label>
+        <input type="text" id="dept" name="dept"><br>
+        <input type="Submit" value="Insert"><br>
+        </form>
+        <ul>
+            {% for d in data %}
+            <li>{{ d.id, d.fname, d.lname, d.dept }}</li>
+            {% endfor %}           
+        </ul>
+    </body>
+</html>
